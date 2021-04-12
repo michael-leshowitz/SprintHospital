@@ -13,12 +13,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
 
 @Autowired
-private PatientRepository patientRepository;
+    private GenericHibernatedDAO<Patient> rep;
 
+//
     @GetMapping(path="/all")
     public @ResponseBody
     Iterable<Patient> getAllPatient() {
         // This returns a JSON or XML with the users
-        return patientRepository.findAll();
+        return rep.findAll();
+    }
+
+    @RequestMapping("/home")
+    public String home(){
+        return "home.jsp";
     }
 }
