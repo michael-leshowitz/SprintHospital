@@ -8,43 +8,20 @@ import java.io.Serializable;
 public class Notes implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="note_id")
     private Integer note_id;
+    @Column(name="creator_id")
     private Integer creator_id;
+    @Column(name="text")
     private String text;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Past_Appointments past_appointments;
-//    public Notes(Builder builder) {
-//        this.note_id = builder.note_id;
-//        this.creator_id = builder.creator_id;
-//        this.text = builder.text;
-//    }
 
     public Notes() {
     }
 
-//    public static class Builder{
-//        private Integer note_id;
-//        private Integer creator_id;
-//        private String text;
-//
-//        public Builder withNoteID(Integer note_id){
-//            this.note_id = note_id;
-//            return this;
-//        }
-//
-//        public Builder withCreatorID(Integer creator_id){
-//            this.creator_id = creator_id;
-//            return this;
-//        }
-//
-//        public Builder withText(String text){
-//            this.text = text;
-//            return this;
-//        }
-//
-//        public Notes build(){return new Notes(this);}
-//    }
+
 
     public Integer getNote_id() {
         return note_id;

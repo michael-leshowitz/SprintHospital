@@ -8,17 +8,16 @@ import java.time.LocalTime;
 @Table(name="past_appointments")
 public class Past_Appointments implements Serializable {
     @Id
+    @Column(name="app_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer app_id;
 //    private Integer date_id;
+    @Column(name="start_time")
     private LocalTime start_time;
+    @Column(name="end_time")
     private LocalTime end_time;
-//    private Integer staff_id;
-//    private Integer patient_id;
-//    private Integer dept_id;
+    @Column(name="room_id")
     private Integer room_id;
-//    private Integer service_id;
-//    private Integer note_id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="patient_id", nullable = false)
@@ -36,6 +35,7 @@ public class Past_Appointments implements Serializable {
     @JoinColumn(name="service_id", nullable = false)
     private Services services;
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="note_id")
     private Notes notes;
 
     public Past_Appointments() {

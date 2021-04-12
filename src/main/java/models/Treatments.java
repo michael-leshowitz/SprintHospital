@@ -11,16 +11,22 @@ import java.util.List;
 public class Treatments implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="treatment_id")
     private Integer treatment_id;
+    @Column(name="supply")
     private Integer supply;
+    @Column(name="dosage")
     private Integer dosage;
+    @Column(name="prescribe_date")
     private Date prescribe_date;
+    @Column(name="refills")
     private Integer refills;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="patient_id", nullable = false)
     private Patient patient;
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "medication_id")
     private Medications medication;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FollowUps> followUps = new ArrayList<>();
@@ -28,68 +34,7 @@ public class Treatments implements Serializable {
     public Treatments() {
     }
 
-//    public Treatments(Builder builder) {
-//        this.treatment_id = builder.treatment_id;
-//        this.medication_id = builder.medication_id;
-//        this.supply = builder.supply;
-//        this.dosage = builder.dosage;
-//        this.prescribe_date = builder.prescribe_date;
-//        this.refills = builder.refills;
-//        this.followUp_id = builder.followUp_id;
-//    }
-//
-//    public static class Builder{
-//        private Integer treatment_id;
-//        private Integer patient_id;
-//        private Integer medication_id;
-//        private Integer supply;
-//        private Integer dosage;
-//        private Date prescribe_date;
-//        private Integer refills;
-//        private Integer followUp_id;
-//
-//        public Builder withTreatmentID(Integer treatment_id){
-//            this.treatment_id = treatment_id;
-//            return this;
-//        }
-//
-//        public Builder withPatientID(Integer patient_id){
-//            this.patient_id = patient_id;
-//            return this;
-//        }
-//
-//        public Builder withMedicationID(Integer medication_id){
-//            this.medication_id = medication_id;
-//            return this;
-//        }
-//
-//        public Builder withSupply(Integer supply){
-//            this.supply = supply;
-//            return this;
-//        }
-//
-//        public Builder withDosage(Integer dosage){
-//            this.dosage = dosage;
-//            return this;
-//        }
-//
-//        public Builder withPrescribeDate(Date prescribe_date){
-//            this.prescribe_date = prescribe_date;
-//            return this;
-//        }
-//
-//        public Builder withRefills(Integer refills){
-//            this.refills = refills;
-//            return this;
-//        }
-//
-//        public Builder withFollowUpID(Integer followUp_id){
-//            this.followUp_id = followUp_id;
-//            return this;
-//        }
-//
-//        public Treatments build(){return new Treatments(this);}
-//    }
+
     public Integer getTreatment_id() {
         return treatment_id;
     }
@@ -98,21 +43,6 @@ public class Treatments implements Serializable {
         this.treatment_id = treatment_id;
     }
 
-//    public Integer getPatient_id() {
-//        return patient_id;
-//    }
-//
-//    public void setPatient_id(Integer patient_id) {
-//        this.patient_id = patient_id;
-//    }
-//
-//    public Integer getMedication_id() {
-//        return medication_id;
-//    }
-//
-//    public void setMedication_id(Integer medication_id) {
-//        this.medication_id = medication_id;
-//    }
 
     public Integer getSupply() {
         return supply;

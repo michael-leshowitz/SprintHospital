@@ -14,15 +14,25 @@ public class Patient implements Serializable {
     @Column(name="patient_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer patient_id;
+    @Column(name="user_name")
     private String user_name;
+    @Column(name="password")
     private String password;
+    @Column(name="lastName")
     private String lastName;
+    @Column(name="firstName")
     private String firstName;
+    @Column(name="dob")
     private Date dob;
+    @Column(name="contact_address")
     private String contact_address;
+    @Column(name="contact_email")
     private String contact_email;
+    @Column(name="contact_phone")
     private String contact_phone;
+    @Column(name="pcp")
     private String pcp;
+    @Column(name="record_id")
     private Integer record_id;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "patient")
