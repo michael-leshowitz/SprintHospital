@@ -1,4 +1,4 @@
-package com.example.demo;
+package Repositories;
 
 import models.Patient;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
