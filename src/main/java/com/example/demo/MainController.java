@@ -29,9 +29,9 @@ public class MainController {
     }
 
     @RequestMapping("/home")
-    public ModelAndView home(@RequestParam("name") String myname){
+    public ModelAndView home(Patient patient){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("name", myname);
+        mv.addObject("patient", patient);
         mv.setViewName("home");
         return mv;
     }

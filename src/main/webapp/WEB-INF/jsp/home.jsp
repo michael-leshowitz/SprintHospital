@@ -6,6 +6,12 @@
     <title>Insert Title Here</title>
 </head>
 <body>
-Welcome ${name}. I love gold
+Welcome ${patient.firstName}. I love gold. Your DOB is ${patient.dob}.
+
+<form action="addPatient">
+    <input type="text" name="firstName"><br>
+    <input type="text" name="dob"><br>
+    <input type="sumit">
+</form>
 </body>
 </html>
