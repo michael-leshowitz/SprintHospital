@@ -11,11 +11,16 @@ import java.util.List;
 public class Dates implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="date_id")
     private Integer date_id;
     @Temporal(TemporalType.DATE)
+    @Column(name="full_date")
     private Date full_date;
+    @Column(name="day_of_week")
     private Integer day_of_week;
+    @Column(name="isHoliday")
     private Boolean isHoliday;
+    @Column(name="isWeekend")
     private Boolean isWeekend;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "dates")
@@ -28,48 +33,6 @@ public class Dates implements Serializable {
     public Dates() {
     }
 
-//    public Dates(Builder builder) {
-//        this.date_id = builder.date_id;
-//        this.full_date = builder.full_date;
-//        this.day_of_week = builder.day_of_week;
-//        this.isHoliday = builder.isHoliday;
-//        this.isWeekend = builder.isWeekend;
-//    }
-//
-//    public static class Builder{
-//        private Integer date_id;
-//        private Date full_date;
-//        private Integer day_of_week;
-//        private Boolean isHoliday;
-//        private Boolean isWeekend;
-//
-//        public Builder withDateID(Integer date_id){
-//            this.date_id = date_id;
-//            return  this;
-//        }
-//
-//        public Builder withFullDate(Date full_date){
-//            this.full_date = full_date;
-//            return  this;
-//        }
-//
-//        public Builder withDayOfWeek(Integer day_of_week){
-//            this.day_of_week = day_of_week;
-//            return  this;
-//        }
-//
-//        public Builder withIsHoliday(Boolean isHoliday){
-//            this.isHoliday = isHoliday;
-//            return  this;
-//        }
-//
-//        public Builder withIsWeekend(Boolean isWeekend){
-//            this.isWeekend = isWeekend;
-//            return  this;
-//        }
-//
-//        public Dates build(){return new Dates(this);}
-//    }
 
     public Integer getDate_id() {
         return date_id;

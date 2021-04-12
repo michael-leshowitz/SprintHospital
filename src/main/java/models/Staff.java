@@ -10,16 +10,27 @@ import java.util.List;
 public class Staff implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="staff_id")
     private Integer staff_id;
+    @Column(name="userName")
     private String userName;
+    @Column(name="password")
     private String password;
+    @Column(name="lastName")
     private String lastName;
+    @Column(name="firstName")
     private String firstName;
+    @Column(name="contact_address")
     private String contact_address;
+    @Column(name="contact_email")
     private String contact_email;
+    @Column(name="contact_phone")
     private String contact_phone;
+    @Column(name="dept_id")
     private Integer dept_id;
+    @Column(name="title")
     private String title;
+    @Column(name="permission_level")
     private Integer permission_level;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "staff")
@@ -32,90 +43,6 @@ public class Staff implements Serializable {
     public Staff() {
     }
 
-//    public Staff(Builder builder){
-//        this.staff_id = builder.staff_id;
-//        this.userName = builder.userName;
-//        this.password = builder.password;
-//        this.lastName = builder.lastName;
-//        this.firstName = builder.firstName;
-//        this.contact_address = builder.contact_address;
-//        this.contact_email = builder.contact_email;
-//        this.contact_phone = builder.contact_phone;
-//        this.dept_id = builder.dept_id;
-//        this.title = builder.title;
-//        this.permission_level = builder.permission_level;
-//    }
-//
-//    public static class Builder{
-//        private Integer staff_id;
-//        private String userName;
-//        private String password;
-//        private String lastName;
-//        private String firstName;
-//        private String contact_address;
-//        private String contact_email;
-//        private String contact_phone;
-//        private Integer dept_id;
-//        private String title;
-//        private Integer permission_level;
-//
-//        public Builder withStaffID(Integer staff_id){
-//            this.staff_id = staff_id;
-//            return this;
-//        }
-//
-//        public Builder withUserName(String userName){
-//            this.userName = userName;
-//            return this;
-//        }
-//
-//        public Builder withPassword(String password){
-//            this.password = password;
-//            return  this;
-//        }
-//
-//        public Builder withLastName(String lastName){
-//            this.lastName = lastName;
-//            return this;
-//        }
-//
-//        public  Builder withFirstName(String firstName){
-//            this.firstName = firstName;
-//            return this;
-//        }
-//
-//        public Builder withContactAddress(String contact_address){
-//            this.contact_address = contact_address;
-//            return this;
-//        }
-//
-//        public Builder withContactPhone(String contact_phone){
-//            this.contact_phone = contact_phone;
-//            return this;
-//        }
-//
-//        public Builder withContactEmail(String contact_email){
-//            this.contact_email = contact_email;
-//            return this;
-//        }
-//
-//        public Builder withDeptID(Integer dept_id){
-//            this.dept_id = dept_id;
-//            return this;
-//        }
-//
-//        public Builder withTitle(String title){
-//            this.title = title;
-//            return this;
-//        }
-//
-//        public Builder withPermissionLevel(Integer permission_level){
-//            this.permission_level = permission_level;
-//            return this;
-//        }
-//
-//        public Staff build(){return new Staff(this);}
-//    }
 
     public Integer getStaff_id() {
         return staff_id;

@@ -1,8 +1,11 @@
 package DAO;
 
+import com.example.demo.MainController;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,10 +16,11 @@ import java.util.List;
 @Repository
 @EnableTransactionManagement
 @Transactional
+
 public abstract class AbstractHibernateDAO<T extends Serializable> {
     private Class<T> clazz;
 
-    @Autowired
+    @Qualifier("sessionFactory")
     SessionFactory sessionFactory;
 
     public AbstractHibernateDAO() {
@@ -56,4 +60,9 @@ public abstract class AbstractHibernateDAO<T extends Serializable> {
         return sessionFactory.getCurrentSession();
     }
 
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 }
+
+

@@ -8,33 +8,16 @@ import java.io.Serializable;
 public class Medications implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="medication_id")
     private Integer medication_id;
+    @Column(name="name")
     private String name;
 
-//    public Medications(Builder builder) {
-//        this.medication_id = builder.medication_id;
-//        this.name = builder.name;
-//    }
 
     public Medications() {
     }
 
-//    public static class Builder{
-//        private Integer medication_id;
-//        private String name;
-//
-//        public Builder withMedicationID(Integer medication_id){
-//            this.medication_id = medication_id;
-//            return this;
-//        }
-//
-//        public Builder withName(String name){
-//            this.name = name;
-//            return this;
-//        }
-//
-//        public Medications build(){return new Medications(this);}
-//    }
+
     public Integer getMedication_id() {
         return medication_id;
     }
