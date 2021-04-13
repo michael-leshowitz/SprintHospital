@@ -1,20 +1,28 @@
 package models;
 
+import org.hibernate.annotations.IndexColumn;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "app_schedule")
+@IdClass(App_ScheduleId.class)
 public class App_Schedule implements Serializable {
-    @Id
+   @Id
+   @Column(name ="app_id")
+   private Integer app_id;
+
+   @Id
+   @Column(name = "staff_id")
+   private Integer staff_id;
+
     @ManyToOne
-    @MapsId
-    @JoinColumn(name = "app_id")
+    @PrimaryKeyJoinColumn(name = "app_id")
     private Appointments appointments;
-    @Id
+
     @ManyToOne
-    @MapsId
-    @JoinColumn(name = "staff_id")
+    @PrimaryKeyJoinColumn(name = "staff_id")
     private Staff staff;
 
     public App_Schedule() {

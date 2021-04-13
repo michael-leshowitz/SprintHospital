@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-@EntityScan("models")
+@EntityScan("models.Patient")
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
    @Query(value = "SELECT * FROM patient WHERE firstName= ?1", nativeQuery = true)
@@ -20,10 +20,3 @@ public interface PatientRepository extends JpaRepository<Patient, Integer> {
     @Query(value = "SELECT * FROM patient WHERE user_name= ?1", nativeQuery = true)
     List<Patient> findByUserName(String userName);
 }
-//@Query("SELECT u FROM User u WHERE u.status = ?1 and u.name = ?2")
-//User findUserByStatusAndName(Integer status, String name);
-
-//ToDo
-//Create repositories for all other models
-//ToDo
-//Look into a generic repository. Would be easier than 12 interfaces.
