@@ -5,14 +5,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Description;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.servlet.ViewResolver;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -26,6 +35,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider authProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(patientDetailService);
+//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
     }
@@ -35,6 +45,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/login").permitAll()
+                .antMatchers("/patient/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -44,5 +55,45 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll();
+
     }
+//Todo Move these elsewhere. Make another config
+@Bean
+@Description("Thymeleaf template resolver serving HTML 5")
+public ClassLoaderTemplateResolver templateResolver() {
+
+    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+
+    templateResolver.setPrefix("templates/");
+    templateResolver.setCacheable(false);
+    templateResolver.setSuffix(".html");
+    templateResolver.setTemplateMode("HTML5");
+    templateResolver.setCharacterEncoding("UTF-8");
+
+    return templateResolver;
+}
+
+    @Bean
+    @Description("Thymeleaf template engine with Spring integration")
+    public SpringTemplateEngine templateEngine() {
+
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+
+        return templateEngine;
+    }
+
+    @Bean
+    @Description("Thymeleaf view resolver")
+    public ViewResolver viewResolver() {
+
+        ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
+
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
+
+        return viewResolver;
+    }
+
+
 }

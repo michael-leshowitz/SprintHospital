@@ -1,0 +1,19 @@
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert Title Here</title>
+</head>
+<body>
+<h1>Register</h1>
+<form action="/patient/registration" method='Post' modelAttribute="patientDTO">
+    <input type="text" path="firstName" name="firstName" th:value="${patient.firstName}"><br>
+    <input type="text" path="lastName" name="lastName" th:value="${patient.lastName}"><br>
+    <input type="text" path="contact_email" name="contact_email" th:value="${patient.contact_email}"><br>
+    <input type="text" path="userName" name="userName"><br>
+    <input type="password" path="password" name="password"><br>
+    <input type="password" path="matchingPassword" name="matchingPassword"><br>
+    <input name="submit" type="submit" value="Register">
+</form>
+<p th:text="${error}"></p>
+</body>
+</html>
