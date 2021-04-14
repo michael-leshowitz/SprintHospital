@@ -37,8 +37,8 @@ public class MainController {
 
     @RequestMapping("/findPatient")
     public @ResponseBody Iterable<Patient> findPatient(@RequestParam String username){
-        System.out.println(patientRepository.findByUserName(username));
-        return patientRepository.findByUserName(username);
+        System.out.println(patientRepository.findAllByUserName(username));
+        return patientRepository.findAllByUserName(username);
     }
 
     @RequestMapping("/addPatient")

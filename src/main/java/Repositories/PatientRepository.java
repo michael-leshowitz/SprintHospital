@@ -14,9 +14,12 @@ import java.util.List;
 @EntityScan("models.Patient")
 public interface PatientRepository extends JpaRepository<Patient, Integer> {
 
+    @Query(value = "SELECT * FROM patient WHERE user_name= ?1", nativeQuery = true)
+    Patient findByUserName(String user_name);
+
    @Query(value = "SELECT * FROM patient WHERE firstName= ?1", nativeQuery = true)
     List<Patient> findByFirstName(String firstname);
 
     @Query(value = "SELECT * FROM patient WHERE user_name= ?1", nativeQuery = true)
-    List<Patient> findByUserName(String userName);
+    List<Patient> findAllByUserName(String userName);
 }
