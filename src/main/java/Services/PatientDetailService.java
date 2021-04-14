@@ -1,10 +1,9 @@
 package Services;
 
 import Repositories.PatientRepository;
-import com.example.demo.PatientPrincipal;
+import Configuration.PatientPrincipal;
 import models.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +14,7 @@ public class PatientDetailService implements UserDetailsService {
     @Autowired
     private PatientRepository patientRepository;
     @Override
+
     public UserDetails loadUserByUsername(String user_name) throws UsernameNotFoundException {
         Patient patient = patientRepository.findByUserName(user_name);
         if(patient == null)

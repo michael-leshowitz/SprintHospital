@@ -13,7 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import Repositories.PatientRepository;
 
 @Controller
-@RequestMapping(path = "/demo")
+//@RequestMapping(path = "/")
+@ComponentScan("Configuration")
+@RequestMapping
 public class MainController {
 
     @Autowired
@@ -47,4 +49,19 @@ public class MainController {
         mv.setViewName("home");
         return mv;
     }
+
+    @RequestMapping("/login")
+    public ModelAndView loginPage(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("login");
+        return mv;
+    }
+
+    @RequestMapping("/logout-success")
+    public ModelAndView logoutPage(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("logout");
+        return mv;
+    }
+
 }

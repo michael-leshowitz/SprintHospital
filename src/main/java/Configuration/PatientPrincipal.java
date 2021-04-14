@@ -1,4 +1,4 @@
-package com.example.demo;
+package Configuration;
 
 import models.Patient;
 import org.springframework.security.core.GrantedAuthority;
