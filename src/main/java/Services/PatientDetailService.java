@@ -1,6 +1,7 @@
-package com.example.demo;
+package Services;
 
 import Repositories.PatientRepository;
+import com.example.demo.PatientPrincipal;
 import models.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
