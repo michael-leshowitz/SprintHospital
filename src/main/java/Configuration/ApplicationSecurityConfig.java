@@ -6,16 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.ViewResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -35,26 +32,29 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationProvider authProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(patientDetailService);
-//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return provider;
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/patient/registration");
+        web.ignoring().antMatchers("/patient/registration")
+        .and()
+        .ignoring().antMatchers("/");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/login").permitAll()
+                .authorizeRequests().antMatchers("/patient/login").permitAll()
                 .antMatchers("/patient/register").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login").permitAll()
+                .loginPage("/patient/login").permitAll()
+                //ToDo Error in login handling
+                .defaultSuccessUrl("/patient/registration")
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)

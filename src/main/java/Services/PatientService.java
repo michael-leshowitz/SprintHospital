@@ -1,6 +1,5 @@
 package Services;
 
-import Annotations.ValidEmail;
 import DTO.PatientDTO;
 import Repositories.PatientRepository;
 import models.Patient;
@@ -27,11 +26,11 @@ public class PatientService {
         if(userExist(patientDTO.getUserName())){
             throw new UserAlreadyExistException("There is an account with that User Name: " + patientDTO.getUserName());
         }
-        if(passwordMisMatch(patientDTO.getPassword(), patientDTO.getMatchingPassword())){
-            throw new PasswordMisMatchException("Password confirmation failed. The passwords do not match.");
-        }
         if(!(isValidEmail(patientDTO.getContact_email()))){
             throw new InvalidEmailException("Invalid email address.");
+        }
+        if(passwordMisMatch(patientDTO.getPassword(), patientDTO.getMatchingPassword())){
+            throw new PasswordMisMatchException("Password confirmation failed. The passwords do not match.");
         }
         Patient newPatient = new Patient();
 

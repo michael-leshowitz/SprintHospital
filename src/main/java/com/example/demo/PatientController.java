@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import Annotations.EmailValidator;
 import DTO.PatientDTO;
 import Services.PatientService;
 import models.Patient;
@@ -25,10 +24,16 @@ public class PatientController {
     @Autowired
 private PatientService patientService;
 
+    @RequestMapping("login")
+    public ModelAndView loginPage(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("patient-login");
+        return mv;
+    }
+
     @RequestMapping("registration")
     public ModelAndView registration() {
         ModelAndView mv = new ModelAndView();
-        System.out.println("Hit Request");
         mv.setViewName("registration");
         return mv;
     }
@@ -41,10 +46,9 @@ private PatientService patientService;
     }
 
     @RequestMapping(value="registration", method= RequestMethod.POST)
-    public ModelAndView registerPatientAccount(@ModelAttribute("patient") @Valid PatientDTO patientDTO,
+    public ModelAndView registerPatientAccount(@ModelAttribute("patient") PatientDTO patientDTO,
             HttpServletRequest request,
             Errors errors) {
-//ToDo These annotations are not throwing errors when they should. Either look into fixing or get rid of and impose a check
         try {
             Patient registered = patientService.registerNewPatientAccount(patientDTO);
         } catch (Exception e) {
@@ -54,14 +58,6 @@ private PatientService patientService;
             mav.addObject("error", e.getMessage());
             mav.setViewName("registration");
             return mav;
-//        } catch (NullPointerException e){
-//
-//        } catch (PatientService.PasswordMisMatchException pmmEx){
-//            ModelAndView mav = new ModelAndView();
-//            mav.addObject("patient", patientDTO);
-//            mav.addObject("error", pmmEx.getMessage());
-//            mav.setViewName("registration");
-//            return mav;
         }
         return new ModelAndView("successRegister", "patient", patientDTO);
     }

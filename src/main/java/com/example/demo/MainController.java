@@ -10,7 +10,6 @@ import models.Patient;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import Repositories.PatientRepository;
 
 @Controller
 //@RequestMapping(path = "/")
@@ -28,12 +27,10 @@ public class MainController {
         return patientRepository.findAll();
     }
 
-    @RequestMapping("home")
+    @RequestMapping("")
     public ModelAndView home(Patient patient){
         ModelAndView mv = new ModelAndView();
-        mv.addObject("patient", patient);
         mv.setViewName("home");
-        System.out.printf("name: ",patient.getFirstName());
         return mv;
     }
 
@@ -47,13 +44,6 @@ public class MainController {
     public ModelAndView addPatient(Patient patient){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("home");
-        return mv;
-    }
-
-    @RequestMapping("/login")
-    public ModelAndView loginPage(){
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("login");
         return mv;
     }
 

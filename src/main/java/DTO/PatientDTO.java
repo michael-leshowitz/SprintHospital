@@ -1,13 +1,10 @@
 package DTO;
 
-import Annotations.PasswordMatches;
-import Annotations.ValidEmail;
 import com.sun.istack.NotNull;
 import org.springframework.lang.NonNull;
 
 import javax.validation.constraints.NotEmpty;
 
-@PasswordMatches
 public class PatientDTO {
     @NotNull
     @NotEmpty
@@ -17,7 +14,6 @@ public class PatientDTO {
     @NotEmpty
     private String lastName;
 
-    @ValidEmail
     @NotNull
     @NotEmpty
     private String contact_email;
