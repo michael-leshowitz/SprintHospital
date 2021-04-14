@@ -41,6 +41,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/patient/registration");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
@@ -57,6 +62,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/logout-success").permitAll();
 
     }
+
 //Todo Move these elsewhere. Make another config
 @Bean
 @Description("Thymeleaf template resolver serving HTML 5")
