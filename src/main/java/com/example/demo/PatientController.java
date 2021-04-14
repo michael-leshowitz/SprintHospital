@@ -41,22 +41,27 @@ private PatientService patientService;
     }
 
     @RequestMapping(value="registration", method= RequestMethod.POST)
-    public ModelAndView registerPatientAccount(@ModelAttribute("patientDTO") @Valid PatientDTO patientDTO,
+    public ModelAndView registerPatientAccount(@ModelAttribute("patient") @Valid PatientDTO patientDTO,
             HttpServletRequest request,
             Errors errors) {
 //ToDo These annotations are not throwing errors when they should. Either look into fixing or get rid of and impose a check
         try {
             Patient registered = patientService.registerNewPatientAccount(patientDTO);
-        } catch (PatientService.UserAlreadyExistException uaeEx) {
+        } catch (Exception e) {
             ModelAndView mav = new ModelAndView();
-            System.out.println("an error afoot");
             System.out.println(patientDTO.getFirstName());
             mav.addObject("patient", patientDTO);
-            mav.addObject("error", uaeEx.getMessage());
+            mav.addObject("error", e.getMessage());
             mav.setViewName("registration");
             return mav;
-        } catch (NullPointerException e){
-
+//        } catch (NullPointerException e){
+//
+//        } catch (PatientService.PasswordMisMatchException pmmEx){
+//            ModelAndView mav = new ModelAndView();
+//            mav.addObject("patient", patientDTO);
+//            mav.addObject("error", pmmEx.getMessage());
+//            mav.setViewName("registration");
+//            return mav;
         }
         return new ModelAndView("successRegister", "patient", patientDTO);
     }
