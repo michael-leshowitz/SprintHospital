@@ -10,8 +10,14 @@ public class TestController {
 
     @RequestMapping("/")
     public ModelAndView defaultHome() {
-        return new ModelAndView("patient-login");
+        return new ModelAndView("home");
     }
+
+    @RequestMapping("/home")
+    public ModelAndView home() {
+        return new ModelAndView("home");
+    }
+
 
     @RequestMapping("/login")
     public ModelAndView login() {
@@ -40,7 +46,7 @@ public class TestController {
 
     @RequestMapping("/admin/dashboard")
     public ModelAndView admindashboard() {
-        return new ModelAndView("registration");
+        return new ModelAndView("Staff Landing Page");
     }
 
     @RequestMapping("/admin/accessdenied")
