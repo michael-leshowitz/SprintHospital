@@ -15,8 +15,6 @@ public class Notes implements Serializable {
     @Column(name="text")
     private String text;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Past_Appointments past_appointments;
 
     public Notes() {
     }
@@ -47,13 +45,8 @@ public class Notes implements Serializable {
         this.text = text;
     }
 
-    public Past_Appointments getPast_appointments() {
-        return past_appointments;
-    }
 
-    public void setPast_appointments(Past_Appointments past_appointments) {
-        this.past_appointments = past_appointments;
-    }
+
 
     @Override
     public String toString() {

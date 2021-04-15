@@ -24,7 +24,7 @@ public class Treatments implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="patient_id", nullable = false)
-    private Patient patient;
+    private Users user;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medication_id")
     private Medications medication;
@@ -76,12 +76,12 @@ public class Treatments implements Serializable {
         this.refills = refills;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public Users getUser() {
+        return user;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setUser(Users user) {
+        this.user = user;
     }
 
     public Medications getMedication() {
@@ -112,7 +112,6 @@ public class Treatments implements Serializable {
     public String toString() {
         return "treatments{" +
                 "treatment_id='" + treatment_id + '\'' +
-                ", patient_id='" + patient.getPatient_id() + '\'' +
                 ", medication_id='" + medication.getMedication_id() + '\'' +
                 ", supply='" + supply + '\'' +
                 ", dosage='" + dosage + '\'' +

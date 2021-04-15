@@ -3,6 +3,7 @@ package models;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.List;
 
 @Entity
 @Table(name="past_appointments")
@@ -12,6 +13,7 @@ public class Past_Appointments implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer app_id;
 //    private Integer date_id;
+
     @Column(name="start_time")
     private LocalTime start_time;
     @Column(name="end_time")
@@ -19,12 +21,9 @@ public class Past_Appointments implements Serializable {
     @Column(name="room_id")
     private Integer room_id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="patient_id", nullable = false)
-    private Patient patient;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="staff_id", nullable = false)
-    private Staff staff;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Users> users;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="date_id", nullable = false)
     private Dates dates;
@@ -198,21 +197,7 @@ public class Past_Appointments implements Serializable {
 //        this.note_id = note_id;
 //    }
 
-    public Patient getPatient() {
-        return patient;
-    }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
 
     public Dates getDates() {
         return dates;
@@ -253,8 +238,7 @@ public class Past_Appointments implements Serializable {
                 ", date_id='" + dates.getDate_id() + '\'' +
                 ", start_time='" + start_time + '\'' +
                 ", end_time='" + end_time + '\'' +
-                ", staff_id='" + staff.getStaff_id() + '\'' +
-                ", patient_id='" + patient.getPatient_id() + '\'' +
+
                 ", dept_id='" + departments.getDept_id() + '\'' +
                 ", room_id='" + room_id + '\'' +
                 ", service_id='" + services.getService_id() + '\'' +

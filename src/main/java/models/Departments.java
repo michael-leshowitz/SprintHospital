@@ -19,10 +19,6 @@ public class Departments implements Serializable {
     @Column(name="classification")
     private String classification;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "departments")
-    private List<Appointments> appointments = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "departments")
-    private List<Past_Appointments> past_appointments = new ArrayList<>();
 
     public Departments() {
     }
@@ -59,21 +55,7 @@ public class Departments implements Serializable {
         this.classification = classification;
     }
 
-    public List<Appointments> getAppointments() {
-        return appointments;
-    }
 
-    public void setAppointments(List<Appointments> appointments) {
-        this.appointments = appointments;
-    }
-
-    public List<Past_Appointments> getPast_appointments() {
-        return past_appointments;
-    }
-
-    public void setPast_appointments(List<Past_Appointments> past_appointments) {
-        this.past_appointments = past_appointments;
-    }
 
     @Override
     public String toString() {

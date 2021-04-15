@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "appointments")
@@ -25,12 +26,8 @@ public class Appointments implements Serializable {
     @Column(name="end_time_expected")
     private LocalTime end_time_expected;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="patient_id", nullable = false)
-    private Patient patient;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="staff_id", nullable = false)
-    private Staff staff;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Users> user;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="dept_id", nullable = false)
     private Departments departments;
@@ -90,20 +87,12 @@ public class Appointments implements Serializable {
         this.end_time_expected = end_time_expected;
     }
 
-    public Patient getPatient() {
-        return patient;
+    public List<Users> getUser() {
+        return user;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
+    public void setUser(List<Users> user) {
+        this.user = user;
     }
 
     public Departments getDepartments() {
@@ -129,8 +118,7 @@ public class Appointments implements Serializable {
                 "app_id='" + app_id + '\'' +
                 ", date_id='" + dates.getDate_id() + '\'' +
                 ", time='" + time + '\'' +
-                ", staff_id='" + staff.getStaff_id() + '\'' +
-                ", patient_id='" + patient.getPatient_id() + '\'' +
+
                 ", service_id='" + service_id + '\'' +
                 ", date_created='" + date_created + '\'' +
                 ", creator_id='" + creator_id + '\'' +

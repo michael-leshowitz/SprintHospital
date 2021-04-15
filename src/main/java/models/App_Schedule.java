@@ -22,8 +22,8 @@ public class App_Schedule implements Serializable {
     private Appointments appointments;
 
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "staff_id")
-    private Staff staff;
+    @PrimaryKeyJoinColumn(name = "staff_id", referencedColumnName = "userId")
+    private Users user;
 
     public App_Schedule() {
     }
@@ -37,19 +37,11 @@ public class App_Schedule implements Serializable {
         this.appointments = appointments;
     }
 
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
 
     @Override
     public String toString(){
         return "app_schedule{" +
                 "app_id='" + appointments.getApp_id() + '\'' +
-                ", staff_id='" + staff.getStaff_id() + '\'' +
                 '}';
     }
 }
