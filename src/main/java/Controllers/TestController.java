@@ -31,7 +31,16 @@ public class TestController {
         return new ModelAndView("home");
     }
 
-    @RequestMapping(value = "/patient/login")//get method
+//    @RequestMapping(value = "/patient/login")//get method
+//    public ModelAndView login() {
+//ModelAndView mv = new ModelAndView("patient-login");
+////On the page patient-login, an object was described. To place the object there, in this "get" statement, we define the
+//        //object to add, with the string, and give it a java class
+//mv.addObject("user", new UserDTO());
+//return mv;
+//    }
+
+        @RequestMapping(value = "/login-patient")//get method
     public ModelAndView login() {
 ModelAndView mv = new ModelAndView("patient-login");
 //On the page patient-login, an object was described. To place the object there, in this "get" statement, we define the
@@ -40,7 +49,11 @@ mv.addObject("user", new UserDTO());
 return mv;
     }
 
-    @RequestMapping("/patient/login-process")
+
+//    @RequestMapping("/patient/login-process")
+//    public ModelAndView userLogingProcess(){return new ModelAndView("login-process");}
+
+    @RequestMapping("/patient-login-process")
     public ModelAndView userLogingProcess(){return new ModelAndView("login-process");}
 
     @RequestMapping("/patient/dashboard")
@@ -53,7 +66,10 @@ return mv;
         return new ModelAndView("error page");
     }
 
-    @RequestMapping("/patient/login/error")
+//    @RequestMapping("/patient/login/error")
+//    public ModelAndView userLogingFailure(){return new ModelAndView("error");}
+
+    @RequestMapping("/login-patient-error")
     public ModelAndView userLogingFailure(){return new ModelAndView("error");}
 
     @PostMapping("/registration")

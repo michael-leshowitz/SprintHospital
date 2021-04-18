@@ -45,46 +45,63 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 //    This code here removes the restriction on permission for patient registration.
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/patient/registration")
-        .and()
-        .ignoring().antMatchers("/home")
-        .and()
-        .ignoring().antMatchers("/patient/login")
-        .and()
-                .ignoring().antMatchers("/staff/login");
-    }
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/patient/registration")
+//        .and()
+//        .ignoring().antMatchers("/home")
+//        .and()
+//        .ignoring().antMatchers("/patient/login")
+//        .and()
+//                .ignoring().antMatchers("/staff/login");
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .antMatcher("/patient*")
-//                .authorizeRequests()
-//                .anyRequest()
-//                .hasRole("USER")
-//
-//                .and()
-                .authorizeRequests().antMatchers("/patient/login").permitAll()
-                .antMatchers("/patient/register").permitAll()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
+                .antMatcher("/patient*")
+                .authorizeRequests()
+                .anyRequest()
+                .hasRole("USER")
 
                 .and()
                 .formLogin()
-                .loginPage("/patient/login")
-                .loginProcessingUrl("/patient/login-process")
+                .loginPage("/login-patient")
+                .loginProcessingUrl("/patient-login-process")
                 .defaultSuccessUrl("/patient/dashboard",true)
-//                .permitAll()
-                .failureUrl("/patient/login/error")
+                .failureUrl("/login-patient-error")
+
                 .and()
                 .logout().invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/logout-success").permitAll()
 
-                 .and()
+                .and()
                 .csrf().disable();
+
+
+//                .and()
+//                .authorizeRequests().antMatchers("/patient/login").permitAll()
+//                .antMatchers("/patient/register").permitAll()
+//                .antMatchers("/").permitAll()
+//                .anyRequest().authenticated()
+
+//                .and()
+//                .formLogin()
+//                .loginPage("/patient/login")
+//                .loginProcessingUrl("/patient/login-process")
+//                .defaultSuccessUrl("/patient/dashboard",true)
+//                .failureUrl("/patient/login/error")
+
+//                .and()
+//                .logout().invalidateHttpSession(true)
+//                .clearAuthentication(true)
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/logout-success").permitAll()
+//
+//                 .and()
+//                .csrf().disable();
 
     }
 
