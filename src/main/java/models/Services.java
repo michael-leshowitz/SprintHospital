@@ -19,8 +19,7 @@ public class Services implements Serializable {
     private Duration duration;
     @Column(name="billing_id")
     private Integer billing_id;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "services")
-    private List<Past_Appointments> past_appointments = new ArrayList<>();
+
 
     public Services() {
     }
@@ -58,13 +57,8 @@ public class Services implements Serializable {
         this.billing_id = billing_id;
     }
 
-    public List<Past_Appointments> getPast_appointments() {
-        return past_appointments;
-    }
 
-    public void setPast_appointments(List<Past_Appointments> past_appointments) {
-        this.past_appointments = past_appointments;
-    }
+
 
     @Override
     public String toString() {

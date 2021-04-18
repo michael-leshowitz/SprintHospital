@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "appointments")
@@ -20,17 +21,18 @@ public class Appointments implements Serializable {
     private Integer service_id;
     @Column(name="date_created")
     private Date date_created;
-    @Column(name="creator_id")
-    private Integer creator_id;
     @Column(name="end_time_expected")
     private LocalTime end_time_expected;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="patient_id", nullable = false)
-    private Patient patient;
+    @JoinColumn(name="patient_id", referencedColumnName = "user_id")
+    private Users patient;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="staff_id", nullable = false)
-    private Staff staff;
+    @JoinColumn(name="staff_id", referencedColumnName = "user_id")
+    private Users staff;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="creator_id", referencedColumnName = "user_id")
+    private Users creator;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="dept_id", nullable = false)
     private Departments departments;
@@ -74,36 +76,12 @@ public class Appointments implements Serializable {
         this.date_created = date_created;
     }
 
-    public Integer getCreator_id() {
-        return creator_id;
-    }
-
-    public void setCreator_id(Integer creator_id) {
-        this.creator_id = creator_id;
-    }
-
     public LocalTime getEnd_time_expected() {
         return end_time_expected;
     }
 
     public void setEnd_time_expected(LocalTime end_time_expected) {
         this.end_time_expected = end_time_expected;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
     }
 
     public Departments getDepartments() {
@@ -122,6 +100,29 @@ public class Appointments implements Serializable {
         this.dates = dates;
     }
 
+    public Users getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Users patient) {
+        this.patient = patient;
+    }
+
+    public Users getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Users staff) {
+        this.staff = staff;
+    }
+
+    public Users getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Users creator) {
+        this.creator = creator;
+    }
 
     @Override
     public String toString(){
@@ -129,11 +130,10 @@ public class Appointments implements Serializable {
                 "app_id='" + app_id + '\'' +
                 ", date_id='" + dates.getDate_id() + '\'' +
                 ", time='" + time + '\'' +
-                ", staff_id='" + staff.getStaff_id() + '\'' +
-                ", patient_id='" + patient.getPatient_id() + '\'' +
+
                 ", service_id='" + service_id + '\'' +
                 ", date_created='" + date_created + '\'' +
-                ", creator_id='" + creator_id + '\'' +
+                ", creator_id='" + creator + '\'' +
                 ", dept_id='" + departments.getDept_id() + '\'' +
                 ", end_time_expected='" + end_time_expected + '\'' +
                 "}";

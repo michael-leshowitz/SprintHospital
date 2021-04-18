@@ -2,6 +2,7 @@ package models;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "followups")
@@ -10,12 +11,8 @@ public class FollowUps implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="followUp_id")
     private Integer followUp_id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "staff_id")
-    private Staff staff;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+    @ManyToMany(fetch = FetchType.LAZY)
+    List<Users> users;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "date_id")
     private Dates dates;
@@ -32,20 +29,12 @@ public class FollowUps implements Serializable {
         this.followUp_id = followUp_id;
     }
 
-    public Staff getStaff() {
-        return staff;
+    public List<Users> getUsers() {
+        return users;
     }
 
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
-    public Patient getPatient() {
-        return patient;
-    }
-
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setUsers(List<Users> users) {
+        this.users = users;
     }
 
     public Dates getDates() {
@@ -60,8 +49,6 @@ public class FollowUps implements Serializable {
     public String toString() {
         return "followups{" +
                 "followUp_id='" + followUp_id + '\'' +
-                ", staff_id='" + staff.getStaff_id() + '\'' +
-                ", patient_id='" + patient.getPatient_id() + '\'' +
                 ", date_id='" + dates.getDate_id() + '\'' +
                 '}';
     }
