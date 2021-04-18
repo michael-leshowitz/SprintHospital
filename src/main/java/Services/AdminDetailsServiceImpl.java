@@ -38,7 +38,8 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
             return User.builder()
                     .username(users.getUsername())
                     //change here to store encoded password in db
-                    .password( bCryptPasswordEncoder.encode(users.getPassword()) )
+//                    .password( bCryptPasswordEncoder.encode(users.getPassword()) )
+                    .password(users.getPassword())
                     .disabled(users.isDisabled())
                     .accountExpired(users.isAccountExpired())
                     .accountLocked(users.isAccountLocked())

@@ -31,14 +31,6 @@ public class TestController {
         return new ModelAndView("home");
     }
 
-//    @RequestMapping(value = "/patient/login")//get method
-//    public ModelAndView login() {
-//ModelAndView mv = new ModelAndView("patient-login");
-////On the page patient-login, an object was described. To place the object there, in this "get" statement, we define the
-//        //object to add, with the string, and give it a java class
-//mv.addObject("user", new UserDTO());
-//return mv;
-//    }
 
         @RequestMapping(value = "/login-patient")//get method
     public ModelAndView login() {
@@ -49,9 +41,6 @@ mv.addObject("user", new UserDTO());
 return mv;
     }
 
-
-//    @RequestMapping("/patient/login-process")
-//    public ModelAndView userLogingProcess(){return new ModelAndView("login-process");}
 
     @RequestMapping("/patient-login-process")
     public ModelAndView userLogingProcess(){return new ModelAndView("login-process");}
@@ -65,9 +54,6 @@ return mv;
     public ModelAndView userAccessError() {
         return new ModelAndView("error page");
     }
-
-//    @RequestMapping("/patient/login/error")
-//    public ModelAndView userLogingFailure(){return new ModelAndView("error");}
 
     @RequestMapping("/login-patient-error")
     public ModelAndView userLogingFailure(){return new ModelAndView("error");}
@@ -97,14 +83,6 @@ return mv;
         return mv;
     }
 
-    ///////////////////////////////////////////////////////
-
-    @RequestMapping("/admin/")
-    public ModelAndView admin() {
-        return new ModelAndView("staff-login");
-    }
-
-
     @RequestMapping(value = "/registration")
     public ModelAndView registration(WebRequest request, Model model){
         UserDTO userDto = new UserDTO();
@@ -112,22 +90,30 @@ return mv;
         return new ModelAndView("patient-registration");
     }
 
-    @RequestMapping("/admin/login")
-    public ModelAndView adminlogin() {
-        return new ModelAndView("staff-login");
+    ///////////////////////////////////////////////////////
+
+
+
+    @RequestMapping(value = "/login-staff")//get method
+    public ModelAndView stafflogin() {
+        ModelAndView mv = new ModelAndView("staff-login");
+    //On the page patient-login, an object was described. To place the object there, in this "get" statement, we define the
+        //object to add, with the string, and give it a java class
+        mv.addObject("user", new UserDTO());
+        return mv;
     }
 
-    @RequestMapping(value="/admin/admin_login")
+    @RequestMapping(value="/staff-login-process")
     public ModelAndView adminLoginProcessing() {
         return new ModelAndView("staff-login-process");
     }
 
-    @RequestMapping("/admin/dashboard")
+    @RequestMapping("/staff/dashboard")
     public ModelAndView admindashboard() {
         return new ModelAndView("staff-dashboard");
     }
 
-    @RequestMapping("/admin/accessdenied")
+    @RequestMapping("/login-staff-error")
     public ModelAndView adminAccessError() {
         return new ModelAndView("error page");
     }

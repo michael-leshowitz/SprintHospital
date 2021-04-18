@@ -1,13 +1,16 @@
 package Config;
 
+import Services.AdminDetailsServiceImpl;
 import Services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Description;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -24,10 +27,13 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 @EnableWebSecurity
 @ComponentScan("Services")
-public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+//public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+public class ApplicationSecurityConfig {
+//    @Autowired
+//    private UserDetailsServiceImpl userDetailsService;
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+//    @Autowired
+//    private AdminDetailsServiceImpl adminDetailsService;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -35,15 +41,17 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         return bCryptPasswordEncoder;
     }
 
-    @Bean
-    public AuthenticationProvider authProvider() {
-        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-        provider.setUserDetailsService(userDetailsService);
-//        provider.setPasswordEncoder(passwordEncoder());
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
-        return provider;
-    }
+//    @Bean
+//    public AuthenticationProvider authProvider() {
+//        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+//        provider.setUserDetailsService(userDetailsService);
+////        provider.setPasswordEncoder(passwordEncoder());
+//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+//        return provider;
+//    }
 
+
+/*
 //    This code here removes the restriction on permission for patient registration.
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {
@@ -55,32 +63,100 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //        .and()
 //                .ignoring().antMatchers("/staff/login");
 //    }
+*/
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .antMatcher("/patient*")
-                .authorizeRequests()
-                .anyRequest()
-                .hasRole("USER")
+    @Configuration
+    @Order(1)
+    public static class AppSecurityAdminConfig extends WebSecurityConfigurerAdapter {
 
-                .and()
-                .formLogin()
-                .loginPage("/login-patient")
-                .loginProcessingUrl("/patient-login-process")
-                .defaultSuccessUrl("/patient/dashboard",true)
-                .failureUrl("/login-patient-error")
+        public AppSecurityAdminConfig(){
+            super();
+        }
 
-                .and()
-                .logout().invalidateHttpSession(true)
-                .clearAuthentication(true)
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/logout-success").permitAll()
-
-                .and()
-                .csrf().disable();
+        @Autowired
+        private AdminDetailsServiceImpl adminDetailsService;
 
 
+        public AuthenticationProvider authProvider() {
+            DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+            provider.setUserDetailsService(adminDetailsService);
+//        provider.setPasswordEncoder(passwordEncoder());
+            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+            return provider;
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authenticationProvider(authProvider())
+                    .antMatcher("/staff*")
+                    .authorizeRequests()
+                    .anyRequest()
+                    .hasRole("ADMIN")
+
+                    .and()
+                    .formLogin()
+                    .loginPage("/login-staff")
+                    .loginProcessingUrl("/staff-login-process")
+                    .defaultSuccessUrl("/staff/dashboard", true)
+                    .failureUrl("/login-staff-error")
+
+                    .and()
+                    .logout().invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/logout-success").permitAll()
+
+                    .and()
+                    .csrf().disable();
+        }
+    }
+
+@Configuration
+@Order(2)
+    public static class AppSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    public AppSecurityConfig(){
+        super();
+    }
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    public AuthenticationProvider authProvider() {
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService);
+//        provider.setPasswordEncoder(passwordEncoder());
+        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        return provider;
+    }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            http
+                    .authenticationProvider(authProvider())
+                    .antMatcher("/patient*")
+                    .authorizeRequests()
+                    .anyRequest()
+                    .hasRole("USER")
+
+                    .and()
+                    .formLogin()
+                    .loginPage("/login-patient")
+                    .loginProcessingUrl("/patient-login-process")
+                    .defaultSuccessUrl("/patient/dashboard", true)
+                    .failureUrl("/login-patient-error")
+
+                    .and()
+                    .logout().invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                    .logoutSuccessUrl("/logout-success").permitAll()
+
+                    .and()
+                    .csrf().disable();
+
+/*
 //                .and()
 //                .authorizeRequests().antMatchers("/patient/login").permitAll()
 //                .antMatchers("/patient/register").permitAll()
@@ -102,7 +178,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //                 .and()
 //                .csrf().disable();
-
+*///Here is the code for no User role check
+        }
     }
 
 //Todo Move these elsewhere. Make another config
