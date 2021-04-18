@@ -1,34 +1,61 @@
 package models;
 
+import com.sun.istack.NotNull;
+import org.hibernate.annotations.ColumnDefault;
+
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Users {
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @Column(name="user_id")
+//    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @NotNull
     private long userId;
+    @Column(name="username")
     private String username;
+    @Column(name="password")
     private String password;
+    @Column(name="email")
     private String email;
+    @Column(name="firstName")
+    private String firstName;
+    @Column(name="lastName")
+    private String lastName;
+    @Column(name="disabled")
     private boolean disabled;
-    private boolean accountExpired;
-    private boolean accountLocked;
-    private boolean credentialsExpired;
+    @Column(name="account_expired")
+    private boolean account_expired;
+    @Column(name="account_locked")
+    private boolean account_locked;
+    @Column(name="credentials_expired")
+    private boolean credentials_expired;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     List<Role> roles;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
     public long getUserId() {
         return userId;
@@ -71,27 +98,27 @@ public class Users {
     }
 
     public boolean isAccountExpired() {
-        return accountExpired;
+        return account_expired;
     }
 
     public void setAccountExpired(boolean accountExpired) {
-        this.accountExpired = accountExpired;
+        this.account_expired = accountExpired;
     }
 
     public boolean isAccountLocked() {
-        return accountLocked;
+        return account_locked;
     }
 
     public void setAccountLocked(boolean accountLocked) {
-        this.accountLocked = accountLocked;
+        this.account_locked = accountLocked;
     }
 
     public boolean isCredentialsExpired() {
-        return credentialsExpired;
+        return credentials_expired;
     }
 
     public void setCredentialsExpired(boolean credentialsExpired) {
-        this.credentialsExpired = credentialsExpired;
+        this.credentials_expired = credentialsExpired;
     }
 
     public List<Role> getRoles() {
@@ -101,4 +128,5 @@ public class Users {
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
+
 }

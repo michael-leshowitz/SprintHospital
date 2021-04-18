@@ -32,7 +32,7 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
 
             List<String> roleList = new ArrayList<String>();
             for (Role role : users.getRoles()) {
-                roleList.add(role.getRoleName());
+                roleList.add(role.getRole_name());
             }
 
             return User.builder()

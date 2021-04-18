@@ -1,30 +1,39 @@
 package models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private int roleId;
-    private String roleName;
+    private int role_id;
+    private String role_name;
 
-    public int getRoleId() {
-        return roleId;
+    @ManyToMany(mappedBy = "roles")
+    private List<Users> users;//Guide has this as "Collection"
+
+    public int getRole_id() {
+        return role_id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole_id(int roleId) {
+        this.role_id = roleId;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getRole_name() {
+        return role_name;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole_name(String role_name) {
+        this.role_name = role_name;
+    }
+
+    public List<Users> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<Users> users) {
+        this.users = users;
     }
 }

@@ -14,10 +14,6 @@ public class Departments implements Serializable {
     private Integer dept_id;
     @Column(name="dept_name")
     private String dept_name;
-    @Column(name="address")
-    private String address;
-    @Column(name="classification")
-    private String classification;
 
 
     public Departments() {
@@ -39,22 +35,6 @@ public class Departments implements Serializable {
         this.dept_name = dept_name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getClassification() {
-        return classification;
-    }
-
-    public void setClassification(String classification) {
-        this.classification = classification;
-    }
-
 
 
     @Override
@@ -62,8 +42,6 @@ public class Departments implements Serializable {
         return "departments{" +
                 "dept_id='" + dept_id + '\'' +
                 ", dept_name='" + dept_name + '\'' +
-                ", address='" + address + '\'' +
-                ", classification='" + classification + '\'' +
                 '}';
     }
 }

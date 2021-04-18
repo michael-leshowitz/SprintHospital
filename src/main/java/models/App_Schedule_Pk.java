@@ -1,13 +1,21 @@
 package models;
 
+import javax.persistence.Embeddable;
 import java.io.Serializable;
 
-public class App_ScheduleId implements Serializable {
+@Embeddable
+public class App_Schedule_Pk implements Serializable {
     private Integer app_id;
-
     private Integer staff_id;
 
-    public App_ScheduleId() {
+    public App_Schedule_Pk(Integer app_id, Integer user_id) {
+
+        this.app_id = app_id;
+        this.staff_id = user_id;
+
+    }
+
+    public App_Schedule_Pk() {
     }
 
     public Integer getApp_id() {
