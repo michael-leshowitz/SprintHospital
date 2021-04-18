@@ -6,7 +6,7 @@
 <body>
 <h1>Register</h1>
 <p th:text="${error}"></p>
-<form action="/registration" method='Post' modelAttribute="user">
+<form th:action="@{/registration-patient}" method='Post' th:object="${user}">
     First Name: <input type="text" path="firstName" name="firstName" th:value="${user.firstName}"><br>
     Last Name: <input type="text" path="lastName" name="lastName" th:value="${user.lastName}"><br>
     Email address: <input type="text" path="email" name="email" th:value="${user.email}"><br>
