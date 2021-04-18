@@ -10,13 +10,12 @@ public class Notes implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="note_id")
     private Integer note_id;
-    @Column(name="creator_id")
-    private Integer creator_id;
     @Column(name="text")
     private String text;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Past_Appointments past_appointments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="creator_id", referencedColumnName = "user_id")
+    private Users creator;
 
     public Notes() {
     }
@@ -31,12 +30,12 @@ public class Notes implements Serializable {
         this.note_id = note_id;
     }
 
-    public Integer getCreator_id() {
-        return creator_id;
+    public Users getCreator() {
+        return creator;
     }
 
-    public void setCreator_id(Integer creator_id) {
-        this.creator_id = creator_id;
+    public void setCreator(Users creator) {
+        this.creator = creator;
     }
 
     public String getText() {
@@ -47,19 +46,14 @@ public class Notes implements Serializable {
         this.text = text;
     }
 
-    public Past_Appointments getPast_appointments() {
-        return past_appointments;
-    }
 
-    public void setPast_appointments(Past_Appointments past_appointments) {
-        this.past_appointments = past_appointments;
-    }
+
 
     @Override
     public String toString() {
         return "notes{" +
                 "note_id='" + note_id + '\'' +
-                ", creator_id='" + creator_id + '\'' +
+                ", creator_id='" + creator + '\'' +
                 ", text='" + text + '\'' +
                 '}';
     }

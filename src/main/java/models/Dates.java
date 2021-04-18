@@ -23,12 +23,6 @@ public class Dates implements Serializable {
     @Column(name="isWeekend")
     private Boolean isWeekend;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "dates")
-    private List<Appointments> appointments = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "dates")
-    private List<FollowUps> followups = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "dates")
-    private List<Past_Appointments> past_appointments = new ArrayList<>();
 
     public Dates() {
     }
@@ -74,29 +68,7 @@ public class Dates implements Serializable {
         this.day_of_week = day_of_week;
     }
 
-    public List<Appointments> getAppointments() {
-        return appointments;
-    }
 
-    public void setAppointments(List<Appointments> appointments) {
-        this.appointments = appointments;
-    }
-
-    public List<FollowUps> getFollowups() {
-        return followups;
-    }
-
-    public void setFollowups(List<FollowUps> followups) {
-        this.followups = followups;
-    }
-
-    public List<Past_Appointments> getPast_appointments() {
-        return past_appointments;
-    }
-
-    public void setPast_appointments(List<Past_Appointments> past_appointments) {
-        this.past_appointments = past_appointments;
-    }
 
     @Override
     public String toString(){
