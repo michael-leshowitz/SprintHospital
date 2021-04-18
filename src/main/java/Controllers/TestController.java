@@ -58,21 +58,6 @@ return mv;
     @RequestMapping("/login-patient-error")
     public ModelAndView userLogingFailure(){return new ModelAndView("error");}
 
-    @PostMapping("/registration")
-    public ModelAndView registerUserAccount(
-            @ModelAttribute("user") @Valid UserDTO userDto, HttpServletRequest request, Errors errors){
-        ModelAndView mav = new ModelAndView();
-        try{
-            Users registered = userDetailsService.registerNewUserAccount(userDto);
-        } catch (Exception uaeEx) {
-            mav.addObject("error", uaeEx.getMessage());
-            return new ModelAndView("patient-registration");
-        }
-
-        return new ModelAndView("patient-login");
-
-    }
-
     @RequestMapping("/login")
     public ModelAndView testWhatsUp(){return new ModelAndView("successRegister");}
 
@@ -83,11 +68,27 @@ return mv;
         return mv;
     }
 
-    @RequestMapping(value = "/registration")
+    @RequestMapping(value = "/registration-patient")
     public ModelAndView registration(WebRequest request, Model model){
         UserDTO userDto = new UserDTO();
         model.addAttribute("user",userDto);
-        return new ModelAndView("patient-registration");
+        return new ModelAndView("registration-patient");
+    }
+
+    @PostMapping("/registration-patient")
+    public ModelAndView registerUserAccount(
+            @ModelAttribute("user") @Valid UserDTO userDto, HttpServletRequest request, Errors errors){
+        ModelAndView mav = new ModelAndView();
+        try{
+            Users registered = userDetailsService.registerNewUserAccount(userDto);
+            userDetailsService.updateUserRole();
+        } catch (Exception uaeEx) {
+            mav.addObject("error", uaeEx.getMessage());
+            return new ModelAndView("registration-patient");
+        }
+
+        return new ModelAndView("patient-login");
+
     }
 
     ///////////////////////////////////////////////////////
