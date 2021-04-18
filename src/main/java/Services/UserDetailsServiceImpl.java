@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PostPersist;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,10 +76,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         newPatient.setEmail(userDTO.getEmail());
         newPatient.setLastName(userDTO.getLastName());
         newPatient.setFirstName(userDTO.getFirstName());
-        newPatient.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
-        usersRepository.save(newPatient);
+//        newPatient.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
+        newPatient.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+//        newPatient.setPassword(userDTO.getPassword());
+        newPatient.setDisabled(false);
+        newPatient.setAccountLocked(false);
+        newPatient.setAccountExpired(false);
+        newPatient.setCredentialsExpired(false);
+        usersRepository.savePatient(newPatient.getUsername(), newPatient.getPassword(),newPatient.getEmail(), newPatient.getFirstName(), newPatient.getLastName());
+
         return newPatient;
     }
+//    @PostPersist
+    public void updateUserRole(){
+        usersRepository.updateUserRole();
+    }
+
         private boolean userExist(String user_name){
 
 //            List<Users> us = usersRepository.findUser(user_name);

@@ -76,14 +76,18 @@ public class ApplicationSecurityConfig {
         @Autowired
         private AdminDetailsServiceImpl adminDetailsService;
 
-
         public AuthenticationProvider authProvider() {
             DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
             provider.setUserDetailsService(adminDetailsService);
-//        provider.setPasswordEncoder(passwordEncoder());
+//        provider.setPasswordEncoder(BCryptPasswordEncoder.);
             provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             return provider;
         }
+
+        //Todo Authentification works well, but authorization needs work. https://www.baeldung.com/role-and-privilege-for-spring-security-registration
+        //Seems like a good starting point.
+        //also
+        //https://www.codejava.net/frameworks/spring-boot/spring-boot-security-role-based-authorization-tutorial
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
@@ -123,11 +127,14 @@ public class ApplicationSecurityConfig {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+
     public AuthenticationProvider authProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-//        provider.setPasswordEncoder(passwordEncoder());
-        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(passwordEncoder);
+//        provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         return provider;
     }
 
@@ -181,8 +188,6 @@ public class ApplicationSecurityConfig {
 *///Here is the code for no User role check
         }
     }
-
-//Todo Move these elsewhere. Make another config
 
 
 }
