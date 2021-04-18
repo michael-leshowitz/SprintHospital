@@ -56,13 +56,20 @@ return mv;
     }
 
     @RequestMapping("/login-patient-error")
-    public ModelAndView userLogingFailure(){return new ModelAndView("error");}
+    public ModelAndView userLogingFailure(){return new ModelAndView("patient-login-error");}
 
-    @RequestMapping("/login")
-    public ModelAndView testWhatsUp(){return new ModelAndView("successRegister");}
+    @RequestMapping("/logout-patient")
+    public ModelAndView patientLogout(){return new ModelAndView("logout");}
 
     @RequestMapping("/logout-success")
     public ModelAndView logoutPage(){
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("logout");
+        return mv;
+    }
+
+    @RequestMapping("/logout")
+    public ModelAndView logout(){
         ModelAndView mv = new ModelAndView();
         mv.setViewName("logout");
         return mv;
@@ -116,8 +123,10 @@ return mv;
 
     @RequestMapping("/login-staff-error")
     public ModelAndView adminAccessError() {
-        return new ModelAndView("error page");
+        return new ModelAndView("staff-login-error");
     }
 
+    @RequestMapping("/logout-staff")
+    public ModelAndView staffLogout(){return new ModelAndView("logout");}
 
 }
