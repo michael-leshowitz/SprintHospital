@@ -45,10 +45,10 @@ return mv;
     @RequestMapping("/patient-login-process")
     public ModelAndView userLogingProcess(){return new ModelAndView("login-process");}
 
-    @RequestMapping("/patient/dashboard")
-    public ModelAndView userDashboard() {
-        return new ModelAndView("patient-dashboard");
-    }
+//    @RequestMapping("/patient/dashboard")
+//    public ModelAndView userDashboard() {
+//        return new ModelAndView("patient-dashboard");
+//    }
 
     @RequestMapping("/accessdenied")
     public ModelAndView userAccessError() {
@@ -116,10 +116,10 @@ return mv;
         return new ModelAndView("staff-login-process");
     }
 
-    @RequestMapping("/staff/dashboard")
-    public ModelAndView admindashboard() {
-        return new ModelAndView("staff-dashboard");
-    }
+//    @RequestMapping("/staff/dashboard")
+//    public ModelAndView admindashboard() {
+//        return new ModelAndView("staff-dashboard");
+//    }
 
     @RequestMapping("/login-staff-error")
     public ModelAndView adminAccessError() {

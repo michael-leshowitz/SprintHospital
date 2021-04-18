@@ -18,10 +18,6 @@ public class Dates implements Serializable {
     private Date full_date;
     @Column(name="day_of_week")
     private Integer day_of_week;
-    @Column(name="isHoliday")
-    private Boolean isHoliday;
-    @Column(name="isWeekend")
-    private Boolean isWeekend;
 
 
     public Dates() {
@@ -44,22 +40,6 @@ public class Dates implements Serializable {
         this.full_date = full_date;
     }
 
-    public Boolean getHoliday() {
-        return isHoliday;
-    }
-
-    public void setHoliday(Boolean holiday) {
-        isHoliday = holiday;
-    }
-
-    public Boolean getWeekend() {
-        return isWeekend;
-    }
-
-    public void setWeekend(Boolean weekend) {
-        isWeekend = weekend;
-    }
-
     public Integer getDay_of_week() {
         return day_of_week;
     }
@@ -76,8 +56,6 @@ public class Dates implements Serializable {
                 "date_id='" + date_id + '\'' +
                 ", full_date='" + full_date + '\'' +
                 ", day_of_week='" + day_of_week + '\'' +
-                ", isHoliday='" + isHoliday + '\'' +
-                ", isWeekend='" + isWeekend + '\'' +
                 '}';
     }
 }
