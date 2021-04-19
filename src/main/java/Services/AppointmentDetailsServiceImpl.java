@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Transactional
 @Service
 public class AppointmentDetailsServiceImpl{
@@ -27,5 +29,10 @@ public class AppointmentDetailsServiceImpl{
         appointmentsRepository.saveAppointment(appointmentDTO.getDate_id(),
                 appointmentDTO.getStaff_id(),
                 patient_id);
+    }
+
+    public List<Appointments> findAppointmentSchedule(Long user_id){
+        List<Appointments> upcomingAppointments = appointmentsRepository.findUpcomingAppointmentByPatientId(user_id);
+        return upcomingAppointments;
     }
 }
