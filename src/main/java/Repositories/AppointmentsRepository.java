@@ -20,4 +20,10 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Inte
     public void saveAppointment(@Param("date") Integer date,
                             @Param("staff") Integer staff,
                             @Param("patient") Long patient);
+
+    @Query(value = "Select * " +
+            "from Appointments a join Dates d on a.date_id = d.date_id " +
+            "where d.full_date >=  Current_date() and a.patient_id = :patient",
+            nativeQuery = true)
+    public List<Appointments> findUpcomingAppointmentByPatientId(@Param("patient") Long patient_id);
 }

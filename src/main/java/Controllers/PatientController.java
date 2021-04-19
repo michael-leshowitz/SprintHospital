@@ -5,6 +5,7 @@ import Repositories.DatesRepository;
 import Repositories.UsersRepository;
 import Services.AppointmentDetailsServiceImpl;
 import Services.UserDetailsServiceImpl;
+import models.Appointments;
 import models.Dates;
 import models.Users;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,4 +69,11 @@ public class PatientController {
         return new ModelAndView("patient-app-created-success");
     }
 
+    @RequestMapping("/app-schedule")
+    public ModelAndView viewAppSchedule(Model model, Principal principal){
+        Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
+        List<Appointments> appointments = appointmentDetailsService.findAppointmentSchedule(loggedInUser.getUserId());
+        model.addAttribute("appointments", appointments);
+        return new ModelAndView("patient-appointment-schedule");
+    }
 }
