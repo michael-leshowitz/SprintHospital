@@ -26,4 +26,13 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Inte
             "where d.full_date >=  Current_date() and a.patient_id = :patient",
             nativeQuery = true)
     public List<Appointments> findUpcomingAppointmentByPatientId(@Param("patient") Long patient_id);
+
+    @Modifying
+    @Query(value ="DELETE " +
+            "FROM appointments " +
+            "where app_id = :app " +
+            "LIMIT 1",
+            nativeQuery = true)
+    @Transactional
+    public void deleteByAppId(@Param("app") Integer app_id);
 }

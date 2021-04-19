@@ -76,4 +76,14 @@ public class PatientController {
         model.addAttribute("appointments", appointments);
         return new ModelAndView("patient-appointment-schedule");
     }
+
+    @RequestMapping(value="/cancelAppointment/{appIdString}", method = RequestMethod.GET)
+    public ModelAndView cancelAppointmentById(@PathVariable String appIdString, Model model, Principal principal){
+        Integer appId = Integer.parseInt(appIdString);
+        appointmentDetailsService.deleteByAppId(appId);
+        Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
+        List<Appointments> appointments = appointmentDetailsService.findAppointmentSchedule(loggedInUser.getUserId());
+        model.addAttribute("appointments", appointments);
+        return new ModelAndView("patient-appointment-schedule");
+    }
 }
