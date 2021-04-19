@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,5 +7,16 @@
 </head>
 <body>
 <h1>Schedule an appointment</h1>
+
+<form th:action="@{/patient/app-creation}" method='Post' th:object="${app}">
+    Select Your Doctor:
+    <select th:field="*{staff_id}"><option value="0">select Doctor</option>
+    <option th:each="doctor : ${staff}" th:value="${doctor?.userId}" th:text="${doctor?.lastName}"></option>
+    </select><br>
+    Select the Date: <select th:field="*{date_id}"><option value="0">select date</option>
+    <option th:each="date : ${dates}" th:value="${date?.date_id}" th:text="${date?.full_date}"></option>
+</select><br>
+    <input name="submit" type="submit" value="Submit">
+</form>
 </body>
 </html>

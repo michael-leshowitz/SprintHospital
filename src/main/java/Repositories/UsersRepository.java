@@ -23,6 +23,9 @@ public interface UsersRepository extends JpaRepository<Users, Integer>{
     @Query("SELECT u FROM Users u join u.roles r WHERE u.username = :username and r.role_name='ADMIN'")
     public List<Users> findAdmin(@Param("username") String username);
 
+    @Query("SELECT u FROM Users u join u.roles r WHERE r.role_name='ADMIN'")
+    public List<Users> findAllAdmin();
+
     @Modifying
     @Query(value = "INSERT INTO users VALUES (NULL, :username, :password, :email, '0','0','0','0', :firstName, :lastName); ",nativeQuery = true)
     @Transactional
