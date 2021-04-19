@@ -142,10 +142,11 @@ public class ApplicationSecurityConfig {
         protected void configure(HttpSecurity http) throws Exception {
             http
                     .authenticationProvider(authProvider())
-                    .antMatcher("/patient*")
                     .authorizeRequests()
+                    .antMatchers("/patient**").hasRole("USER")
+                    .antMatchers("/*").permitAll()
                     .anyRequest()
-                    .hasRole("USER")
+                    .fullyAuthenticated()
 
                     .and()
                     .formLogin()
@@ -162,7 +163,6 @@ public class ApplicationSecurityConfig {
 
                     .and()
                     .csrf().disable();
-
 /*
 //                .and()
 //                .authorizeRequests().antMatchers("/patient/login").permitAll()

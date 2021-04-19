@@ -1,4 +1,5 @@
 package Controllers;
+
 import DTO.UserDTO;
 import Services.UserDetailsServiceImpl;
 import models.Users;
@@ -13,11 +14,17 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-//@Controller
-//@RequestMapping("/admin/admin_login")
-//public class AdminController {
-//    @RequestMapping("/admin/dashboard")
-//    public ModelAndView admin() {
-//        return new ModelAndView("Staff Landing Page");
-//    }
-//}
+@Controller
+@RequestMapping
+public class StaffController {
+
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+
+    @RequestMapping("/staff/dashboard")
+    public ModelAndView adminDashboard() {
+        return new ModelAndView("staff-dashboard");
+    }
+
+
+}

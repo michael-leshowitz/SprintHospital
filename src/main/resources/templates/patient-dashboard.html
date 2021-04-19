@@ -1,10 +1,14 @@
 <!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Patient Dashboard</title>
 </head>
 <body>
-<a href="/logout">log out</a>
+Welcome, <span th:text="${user?.firstName}"></span> <span th:text="${user?.lastName}"></span>! <br>
+<a href="/patient/app-creation">Schedule an appointment</a><br>
+<a href="/patient/app-schedule">Upcoming appointments</a><br>
+<a href="/logout">Logout</a>
 </body>
 </html>
