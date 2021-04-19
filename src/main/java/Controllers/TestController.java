@@ -90,7 +90,7 @@ return mv;
             Users registered = userDetailsService.registerNewUserAccount(userDto);
             userDetailsService.updateUserRole();
         } catch (Exception uaeEx) {
-            mav.addObject("error", uaeEx.getMessage());
+            mav.addObject("error", uaeEx.getMessage());//Todo: Change this return statement to return mav.addview... see if error displays
             return new ModelAndView("registration-patient");
         }
 

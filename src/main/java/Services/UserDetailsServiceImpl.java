@@ -40,7 +40,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             for (Role role : users.getRoles()) {
                 roleList.add(role.getRole_name());
             }
-//Todo fix encryption. Need to submit users that are encrypted in order for log in credentials to be ok
             return User.builder()
                     .username(users.getUsername())
                     //change here to store encoded password in db
@@ -83,20 +82,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         newPatient.setAccountLocked(false);
         newPatient.setAccountExpired(false);
         newPatient.setCredentialsExpired(false);
-        usersRepository.savePatient(newPatient.getUsername(), newPatient.getPassword(),newPatient.getEmail(), newPatient.getFirstName(), newPatient.getLastName());
+        usersRepository.savePatient(newPatient.getUsername(),
+                newPatient.getPassword(),
+                newPatient.getEmail(),
+                newPatient.getFirstName(),
+                newPatient.getLastName());
 
         return newPatient;
     }
-//    @PostPersist
+
     public void updateUserRole(){
         usersRepository.updateUserRole();
     }
 
         private boolean userExist(String user_name){
-
-//            List<Users> us = usersRepository.findUser(user_name);
             return !(usersRepository.findUser(user_name).isEmpty());
     }
+
     public boolean isValidEmail(String email){
             return (validateEmail(email));
         }

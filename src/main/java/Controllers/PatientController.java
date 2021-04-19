@@ -3,6 +3,7 @@ package Controllers;
 import DTO.AppointmentDTO;
 import Repositories.DatesRepository;
 import Repositories.UsersRepository;
+import Services.AppointmentDetailsServiceImpl;
 import Services.UserDetailsServiceImpl;
 import models.Dates;
 import models.Users;
@@ -24,10 +25,14 @@ public class PatientController {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+    //Todo: Replace the autowired repositories with autowired services. Have the services interface with respositories for queries
     @Autowired
     private UsersRepository usersRepository;
 
     @Autowired DatesRepository datesRepository;
+
+    @Autowired
+    AppointmentDetailsServiceImpl appointmentDetailsService;
 
     @RequestMapping("/dashboard")
     @ResponseBody
@@ -39,8 +44,8 @@ public class PatientController {
         return mv;
     }
 
-    @RequestMapping(value="/patient/app-creation")
-    public ModelAndView adminLoginProcessing(Principal principal, Model model){
+    @RequestMapping(value="/app-creation")
+    public ModelAndView createAppPageInit(Model model){
         AppointmentDTO appDTO = new AppointmentDTO();
         model.addAttribute("app",appDTO);
         List<Users> staff = usersRepository.findAllAdmin();
@@ -50,18 +55,17 @@ public class PatientController {
         return new ModelAndView("patient-create-appointment");
     }
 
-//    @PostMapping("/app-creation")
-//    public ModelAndView registerUserAccount(
-//            @ModelAttribute("user") @Valid UserDTO userDto, HttpServletRequest request, Errors errors){
-//        ModelAndView mav = new ModelAndView();
-//        try{
-//            Users registered = userDetailsService.registerNewUserAccount(userDto);
-//            userDetailsService.updateUserRole();
-//        } catch (Exception uaeEx) {
-//            mav.addObject("error", uaeEx.getMessage());
-//            return new ModelAndView("registration-patient");
-//        }
-//
-//        return new ModelAndView("patient-login");
-//    }
+    @PostMapping("/app-creation")
+    public ModelAndView createApp(@ModelAttribute("app") AppointmentDTO appointmentDTO, Principal principal){
+        try{
+            Users loggedInUser = usersRepository.findUser(principal.getName()).get(0);
+            appointmentDetailsService.createAppointment(appointmentDTO,
+                    usersRepository.findUser(principal.getName()).get(0).getUserId());
+        } catch (Exception e){
+            return new ModelAndView("patient-create-appointment");
+        }
+
+        return new ModelAndView("patient-app-created-success");
+    }
+
 }

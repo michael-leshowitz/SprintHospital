@@ -29,7 +29,11 @@ public interface UsersRepository extends JpaRepository<Users, Integer>{
     @Modifying
     @Query(value = "INSERT INTO users VALUES (NULL, :username, :password, :email, '0','0','0','0', :firstName, :lastName); ",nativeQuery = true)
     @Transactional
-    public void savePatient(@Param("username") String username, @Param("password") String password, @Param("email") String email, @Param("firstName") String firstName, @Param("lastName") String lastName);
+    public void savePatient(@Param("username") String username,
+                            @Param("password") String password,
+                            @Param("email") String email,
+                            @Param("firstName") String firstName,
+                            @Param("lastName") String lastName);
 
     @Modifying
     @Query(value="insert into user_role (user_role.user_id, user_role.role_id) values ((Select max(users.user_id) from users), 2)", nativeQuery = true)
