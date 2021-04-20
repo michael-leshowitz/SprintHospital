@@ -76,11 +76,14 @@ public class ApplicationSecurityConfig {
         @Autowired
         private AdminDetailsServiceImpl adminDetailsService;
 
+        @Autowired
+        private BCryptPasswordEncoder passwordEncoder;
+
         public AuthenticationProvider authProvider() {
             DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
             provider.setUserDetailsService(adminDetailsService);
-//        provider.setPasswordEncoder(BCryptPasswordEncoder.);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(passwordEncoder);
+//            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             return provider;
         }
 

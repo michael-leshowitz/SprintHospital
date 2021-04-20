@@ -27,6 +27,12 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Inte
             nativeQuery = true)
     public List<Appointments> findUpcomingAppointmentByPatientId(@Param("patient") Long patient_id);
 
+    @Query(value = "Select * " +
+            "from Appointments a join Dates d on a.date_id = d.date_id " +
+            "where d.full_date >=  Current_date() and a.staff_id = :staff",
+            nativeQuery = true)
+    public List<Appointments> findAdminAppointmentSchedule(@Param("staff") Long patient_id);
+
     @Modifying
     @Query(value ="DELETE " +
             "FROM appointments " +

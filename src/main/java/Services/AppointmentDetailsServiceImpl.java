@@ -36,6 +36,11 @@ public class AppointmentDetailsServiceImpl{
         return upcomingAppointments;
     }
 
+    public List<Appointments> findAdminAppointmentSchedule(Long user_id){
+        List<Appointments> upcomingAppointments = appointmentsRepository.findAdminAppointmentSchedule(user_id);
+        return  upcomingAppointments;
+    }
+
     public void deleteByAppId(Integer appId) {
         //Todo: Add error checking and documentation to this method
         appointmentsRepository.deleteByAppId(appId);

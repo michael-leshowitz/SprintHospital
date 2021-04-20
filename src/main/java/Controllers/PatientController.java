@@ -40,6 +40,7 @@ public class PatientController {
     public ModelAndView userDashboard(Principal principal) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView mv = new ModelAndView("patient-dashboard");
+        //Todo change from call to userRespository to call to UsersDetailsServiceImpl
         Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
         mv.addObject("user", loggedInUser);
         return mv;
@@ -61,7 +62,7 @@ public class PatientController {
         try{
             Users loggedInUser = usersRepository.findUser(principal.getName()).get(0);
             appointmentDetailsService.createAppointment(appointmentDTO,
-                    usersRepository.findUser(principal.getName()).get(0).getUserId());
+                    loggedInUser.getUserId());
         } catch (Exception e){
             return new ModelAndView("patient-create-appointment");
         }
