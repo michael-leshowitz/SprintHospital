@@ -13,6 +13,10 @@ public class AppointmentDTO {
     @NotEmpty
     private Integer date_id;
 
+    @NotNull
+    @NotEmpty
+    private String time;
+
     public Integer getStaff_id() {
         return staff_id;
     }
@@ -27,5 +31,13 @@ public class AppointmentDTO {
 
     public void setDate_id(Integer date_id) {
         this.date_id = date_id;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

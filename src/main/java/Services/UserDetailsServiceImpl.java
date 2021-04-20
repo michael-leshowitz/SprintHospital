@@ -111,6 +111,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             matcher = pattern.matcher(email);
             return matcher.matches();
         }
+
     public boolean passwordMisMatch(String password, String passwordMatch){return !(password.equals(passwordMatch));}
 
         public class UserAlreadyExistException extends Exception {

@@ -64,7 +64,10 @@ public class PatientController {
             appointmentDetailsService.createAppointment(appointmentDTO,
                     loggedInUser.getUserId());
         } catch (Exception e){
-            return new ModelAndView("patient-create-appointment");
+
+            ModelAndView mv =  new ModelAndView("patient-create-appointment");
+            mv.addObject("error", e.getMessage());
+            return mv;
         }
 
         return new ModelAndView("patient-app-created-success");

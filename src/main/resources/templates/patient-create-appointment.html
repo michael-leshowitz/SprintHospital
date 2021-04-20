@@ -16,8 +16,16 @@
     Select the Date: <select th:field="*{date_id}"><option value="0">select date</option>
     <option th:each="date : ${dates}" th:value="${date?.date_id}" th:text="${date?.full_date}"></option>
 </select><br>
+    Select the Time: <select th:field="*{time}"><option value="0">select date</option>
+    <option value="11:00:00">11:00:00</option>
+    <option value="12:00:00">12:00:00</option>
+    <option value="13:00:00">13:00:00</option>
+    <option value="14:00:00">14:00:00</option>
+    <option value="15:00:00">15:00:00</option>
+</select><br>
     <input name="submit" type="submit" value="Submit">
 </form>
+<p th:text="${error}"></p>
 <a href="/patient/dashboard">Back to dashboard</a>
 </body>
 </html>
