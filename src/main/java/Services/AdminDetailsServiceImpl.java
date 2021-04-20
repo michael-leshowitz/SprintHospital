@@ -50,4 +50,5 @@ public class AdminDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("User Name is not Found");
         }
     }
+
 }

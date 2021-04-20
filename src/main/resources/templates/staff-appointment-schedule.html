@@ -4,24 +4,24 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <head>
     <meta charset="UTF-8">
-    <title>Appointments</title>
+    <title>Schedule</title>
 </head>
 <body>
 <h1>Upcoming Appointments</h1>
 <table class="w3-table w3-striped w3-border">
     <tr>
-    <th>Date</th>
+        <th>Date</th>
         <th>Time</th>
-        <th>Doctor</th>
-        <th>Cancellation?</th>
+        <th>Patient</th>
+        <th>Cancellation</th>
     </tr>
     <tr th:each="app : ${appointments}">
         <td th:text="${app?.dates.full_date}">
         <td th:text="${app?.time}"></td>
-        <td th:text="${app?.staff.firstName} + ' ' + ${app?.staff.lastName}"></td>
-        <td><a th:href="|@{/patient/cancelAppointment/{appId}(appId=${app?.app_id})}|">Cancel</a> </td>
+        <td th:text="${app?.patient.firstName} + ' ' + ${app?.patient.lastName}"></td>
+        <td><a th:href="|@{/staff/cancelAppointment/{appId}(appId=${app?.app_id})}|">Cancel</a> </td>
     </tr>
 </table>
-<a href="/patient/dashboard">Back to Dashboard</a>
+<a href="/staff/dashboard">Back to Dashboard</a>
 </body>
 </html>

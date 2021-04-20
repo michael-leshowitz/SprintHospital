@@ -76,11 +76,14 @@ public class ApplicationSecurityConfig {
         @Autowired
         private AdminDetailsServiceImpl adminDetailsService;
 
+        @Autowired
+        private BCryptPasswordEncoder passwordEncoder;
+
         public AuthenticationProvider authProvider() {
             DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
             provider.setUserDetailsService(adminDetailsService);
-//        provider.setPasswordEncoder(BCryptPasswordEncoder.);
-            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        provider.setPasswordEncoder(passwordEncoder);
+//            provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
             return provider;
         }
 
@@ -163,29 +166,6 @@ public class ApplicationSecurityConfig {
 
                     .and()
                     .csrf().disable();
-/*
-//                .and()
-//                .authorizeRequests().antMatchers("/patient/login").permitAll()
-//                .antMatchers("/patient/register").permitAll()
-//                .antMatchers("/").permitAll()
-//                .anyRequest().authenticated()
-
-//                .and()
-//                .formLogin()
-//                .loginPage("/patient/login")
-//                .loginProcessingUrl("/patient/login-process")
-//                .defaultSuccessUrl("/patient/dashboard",true)
-//                .failureUrl("/patient/login/error")
-
-//                .and()
-//                .logout().invalidateHttpSession(true)
-//                .clearAuthentication(true)
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/logout-success").permitAll()
-//
-//                 .and()
-//                .csrf().disable();
-*///Here is the code for no User role check
         }
     }
 

@@ -40,6 +40,7 @@ public class PatientController {
     public ModelAndView userDashboard(Principal principal) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView mv = new ModelAndView("patient-dashboard");
+        //Todo change from call to userRespository to call to UsersDetailsServiceImpl
         Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
         mv.addObject("user", loggedInUser);
         return mv;
@@ -61,9 +62,12 @@ public class PatientController {
         try{
             Users loggedInUser = usersRepository.findUser(principal.getName()).get(0);
             appointmentDetailsService.createAppointment(appointmentDTO,
-                    usersRepository.findUser(principal.getName()).get(0).getUserId());
+                    loggedInUser.getUserId());
         } catch (Exception e){
-            return new ModelAndView("patient-create-appointment");
+
+            ModelAndView mv =  new ModelAndView("patient-create-appointment");
+            mv.addObject("error", e.getMessage());
+            return mv;
         }
 
         return new ModelAndView("patient-app-created-success");
@@ -71,6 +75,16 @@ public class PatientController {
 
     @RequestMapping("/app-schedule")
     public ModelAndView viewAppSchedule(Model model, Principal principal){
+        Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
+        List<Appointments> appointments = appointmentDetailsService.findAppointmentSchedule(loggedInUser.getUserId());
+        model.addAttribute("appointments", appointments);
+        return new ModelAndView("patient-appointment-schedule");
+    }
+
+    @RequestMapping(value="/cancelAppointment/{appIdString}", method = RequestMethod.GET)
+    public ModelAndView cancelAppointmentById(@PathVariable String appIdString, Model model, Principal principal){
+        Integer appId = Integer.parseInt(appIdString);
+        appointmentDetailsService.deleteByAppId(appId);
         Users loggedInUser =  usersRepository.findUser(principal.getName()).get(0);
         List<Appointments> appointments = appointmentDetailsService.findAppointmentSchedule(loggedInUser.getUserId());
         model.addAttribute("appointments", appointments);

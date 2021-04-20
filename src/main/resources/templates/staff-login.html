@@ -1,3 +1,4 @@
+<html  xmlns:th="http://www.thymeleaf.org">
 <p>Staff login page</p>
 <!--<form name="f"  th:action="@{/patient/login-process}" th:object="${user}"  method="POST">-->
 <form name="f"  th:action="@{/staff-login-process}" th:object="${user}"  method="POST">
@@ -14,4 +15,5 @@
             <td><input name="submit" type="submit" value="submit" /></td>
         </tr>
     </table>
+    <a href="/home">home</a>
 </form>
