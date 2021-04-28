@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<html  xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Previous Appointments</title>
+</head>
+<body>
+<h1>Unclosed Appointments</h1>
+<table class="w3-table w3-striped w3-border">
+    <tr>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Patient</th>
+<!--        <th>Cancellation?</th>-->
+    </tr>
+    <tr th:each="app : ${appointments}">
+        <td th:text="${app?.dates.full_date}">
+        <td th:text="${app?.time}"></td>
+        <td th:text="${app?.patient.firstName} + ' ' + ${app?.patient.lastName}"></td>
+<!--        <td><a th:href="|@{/patient/cancelAppointment/{appId}(appId=${app?.app_id})}|">Cancel</a> </td>-->
+    </tr>
+</table>
+<a href="/staff/dashboard">Back to Dashboard</a>
+</body>
+</html>

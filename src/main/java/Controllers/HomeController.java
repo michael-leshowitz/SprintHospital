@@ -16,7 +16,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping
-public class TestController {
+public class HomeController {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;

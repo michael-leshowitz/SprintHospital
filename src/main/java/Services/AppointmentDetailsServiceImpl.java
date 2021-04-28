@@ -46,6 +46,11 @@ public class AppointmentDetailsServiceImpl{
         return  upcomingAppointments;
     }
 
+    public List<Appointments> findPreviousAppointments(Long user_id){
+        List<Appointments> previousAppointments = appointmentsRepository.findPreviousAppointmentsByStaffId(user_id);
+        return previousAppointments;
+    }
+
     public void deleteByAppId(Integer appId) {
         //Todo: Add error checking and documentation to this method
         appointmentsRepository.deleteByAppId(appId);

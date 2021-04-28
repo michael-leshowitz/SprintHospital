@@ -45,6 +45,14 @@ public class StaffController {
     return new ModelAndView("staff-appointment-schedule");
     }
 
+    @RequestMapping("/unclosed-app")
+    public ModelAndView adminUnclosedAppointment(Model model, Principal principal){
+        Users loggedInAdmin = usersRepository.findAdmin(principal.getName()).get(0);
+        List<Appointments> unclosedAppointments = appointmentDetailsService.findPreviousAppointments(loggedInAdmin.getUserId());
+        model.addAttribute("appointments", unclosedAppointments);
+        return new ModelAndView("staff-previous-appointments");
+    }
+
     @RequestMapping(value="/cancelAppointment/{appIdString}", method = RequestMethod.GET)
     public ModelAndView cancelAppointmentById(@PathVariable String appIdString, Model model, Principal principal){
         Integer appId = Integer.parseInt(appIdString);

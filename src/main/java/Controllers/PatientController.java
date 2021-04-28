@@ -58,7 +58,7 @@ public class PatientController {
     }
 
     @PostMapping("/app-creation")
-    public ModelAndView createApp(@ModelAttribute("app") AppointmentDTO appointmentDTO, Principal principal){
+    public ModelAndView createApp(@ModelAttribute("app") AppointmentDTO appointmentDTO, Principal principal, Model model){
         try{
             Users loggedInUser = usersRepository.findUser(principal.getName()).get(0);
             appointmentDetailsService.createAppointment(appointmentDTO,
@@ -67,6 +67,10 @@ public class PatientController {
 
             ModelAndView mv =  new ModelAndView("patient-create-appointment");
             mv.addObject("error", e.getMessage());
+            List<Users> staff = usersRepository.findAllAdmin();
+            List<Dates> dates = datesRepository.findNextTwoWeeks();
+            model.addAttribute("staff", staff);
+            model.addAttribute("dates", dates);
             return mv;
         }
 

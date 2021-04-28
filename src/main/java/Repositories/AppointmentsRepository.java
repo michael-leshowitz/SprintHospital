@@ -14,13 +14,12 @@ import java.util.List;
 @Repository
 @EntityScan("models.App_Schedule")
 public interface AppointmentsRepository extends JpaRepository<Appointments, Integer> {
-    @Modifying
-    @Query(value = "INSERT INTO appointments VALUES (NULL, :date, :time, :staff, :patient,1); ",nativeQuery = true)
-    @Transactional
-    public void saveAppointment(@Param("date") Integer date,
-                            @Param("staff") Integer staff,
-                            @Param("patient") Long patient,
-                                @Param("time") String time);
+    @Query(value = "Select * " +
+            "from Appointments a join Dates d on a.date_id = d.date_id " +
+            "where ((d.full_date < Current_date()) " +
+            "OR (d.full_date = Current_date() and a.time < Current_Time())) " +
+            "and a.staff_id = :staff", nativeQuery = true)
+    public List<Appointments> findPreviousAppointmentsByStaffId(@Param("staff") Long user_id);
 
     @Query(value = "Select * " +
             "from Appointments a join Dates d on a.date_id = d.date_id " +
@@ -45,4 +44,13 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Inte
             nativeQuery = true)
     @Transactional
     public void deleteByAppId(@Param("app") Integer app_id);
+
+    @Modifying
+    @Query(value = "INSERT INTO appointments VALUES (NULL, :date, :time, :staff, :patient,1); "
+            ,nativeQuery = true)
+    @Transactional
+    public void saveAppointment(@Param("date") Integer date,
+                                @Param("staff") Integer staff,
+                                @Param("patient") Long patient,
+                                @Param("time") String time);
 }

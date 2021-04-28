@@ -11,7 +11,7 @@
 <form th:action="@{/patient/app-creation}" method='Post' th:object="${app}">
     Select Your Doctor:
     <select th:field="*{staff_id}"><option value="0">select Doctor</option>
-    <option th:each="doctor : ${staff}" th:value="${doctor?.userId}" th:text="${doctor?.lastName}"></option>
+    <option th:each="doctor : ${staff}" th:value="${doctor?.userId}" th:text="'Dr. ' + ${doctor?.lastName}"></option>
     </select><br>
     Select the Date: <select th:field="*{date_id}"><option value="0">select date</option>
     <option th:each="date : ${dates}" th:value="${date?.date_id}" th:text="${date?.full_date}"></option>
