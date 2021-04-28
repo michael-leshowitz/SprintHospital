@@ -46,7 +46,8 @@ public interface AppointmentsRepository extends JpaRepository<Appointments, Inte
     public void deleteByAppId(@Param("app") Integer app_id);
 
     @Modifying
-    @Query(value = "INSERT INTO appointments VALUES (NULL, :date, :time, :staff, :patient,1); ",nativeQuery = true)
+    @Query(value = "INSERT INTO appointments VALUES (NULL, :date, :time, :staff, :patient,1); "
+            ,nativeQuery = true)
     @Transactional
     public void saveAppointment(@Param("date") Integer date,
                                 @Param("staff") Integer staff,

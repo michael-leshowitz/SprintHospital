@@ -18,7 +18,7 @@
     <tr th:each="app : ${appointments}">
         <td th:text="${app?.dates.full_date}">
         <td th:text="${app?.time}"></td>
-        <td th:text="${app?.staff.firstName} + ' ' + ${app?.staff.lastName}"></td>
+        <td th:text="${app?.patient.firstName} + ' ' + ${app?.patient.lastName}"></td>
 <!--        <td><a th:href="|@{/patient/cancelAppointment/{appId}(appId=${app?.app_id})}|">Cancel</a> </td>-->
     </tr>
 </table>

@@ -23,11 +23,13 @@ public interface UsersRepository extends JpaRepository<Users, Integer>{
     @Query("SELECT u FROM Users u join u.roles r WHERE u.username = :username and r.role_name='ADMIN'")
     public List<Users> findAdmin(@Param("username") String username);
 
-    @Query("SELECT u FROM Users u join u.roles r WHERE r.role_name='ADMIN'")
+    @Query("SELECT u FROM Users u join u.roles r WHERE r.role_name='ADMIN'  and u.userId > 30")
     public List<Users> findAllAdmin();
 
     @Modifying
-    @Query(value = "INSERT INTO users VALUES (NULL, :username, :password, :email, '0','0','0','0', :firstName, :lastName); ",nativeQuery = true)
+    @Query(value = "INSERT INTO users " +
+            "VALUES (NULL, :username, :password, :email, '0','0','0','0', :firstName, :lastName); ",
+            nativeQuery = true)
     @Transactional
     public void savePatient(@Param("username") String username,
                             @Param("password") String password,
@@ -36,6 +38,8 @@ public interface UsersRepository extends JpaRepository<Users, Integer>{
                             @Param("lastName") String lastName);
 
     @Modifying
-    @Query(value="insert into user_role (user_role.user_id, user_role.role_id) values ((Select max(users.user_id) from users), 2)", nativeQuery = true)
+    @Query(value="insert into user_role (user_role.user_id, user_role.role_id) " +
+            "values ((Select max(users.user_id) from users), 2)",
+            nativeQuery = true)
     public void updateUserRole();
 }
